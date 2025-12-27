@@ -50,5 +50,10 @@ public class AtmDetail {
     @Column(name = "EPP" , nullable = false)
     private EppType eppType;
 
+    void setDevice(Device device) {
+        this.device = device;
+        this.id = (device != null) ? device.getId() : null;
+    }
+
 
 }

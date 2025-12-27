@@ -38,4 +38,9 @@ public class PosDetail {
     @Enumerated(EnumType.STRING)
     private Set<CardReadCap> cardReadCapabilities = new HashSet<>();
 
+    void setDevice(Device device) {
+        this.device = device;
+        this.id = (device != null) ? device.getId() : null;
+    }
+
 }

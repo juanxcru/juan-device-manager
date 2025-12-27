@@ -32,6 +32,5 @@ public class DeviceEvent {
     @Column(name = "payload_json", columnDefinition = "text")
     private String payloadJson;
 
-    @Column(name = "correlation_id", length = 80)
-    private String correlationId;
+
 }
