@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Entity
+@Table (name = "pos_detail")
 public class PosDetail {
 
     @Id
@@ -38,9 +40,45 @@ public class PosDetail {
     @Enumerated(EnumType.STRING)
     private Set<CardReadCap> cardReadCapabilities = new HashSet<>();
 
-    void setDevice(Device device) {
-        this.device = device;
-        this.id = (device != null) ? device.getId() : null;
+    protected PosDetail () {}
+    public PosDetail(Device device, String embeddedSoftwareVendor, Set<CardReadCap> cardReadCapabilities) {
+        this.setDevice(device);
+        this.embeddedSoftwareVendor = embeddedSoftwareVendor;
+        this.cardReadCapabilities = cardReadCapabilities;
     }
 
+    void setDevice(Device device) {
+
+        if (device != null && device.getId() != null){
+            this.id = device.getId();
+            this.device = device;
+        }else{
+            throw new RuntimeException("device should be not null");
+        }
+
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public String getEmbeddedSoftwareVendor() {
+        return embeddedSoftwareVendor;
+    }
+
+    public Set<CardReadCap> getCardReadCapabilities() {
+        return cardReadCapabilities;
+    }
+
+    public void setEmbeddedSoftwareVendor(String embeddedSoftwareVendor) {
+        this.embeddedSoftwareVendor = embeddedSoftwareVendor;
+    }
+
+    public void setCardReadCapabilities(Set<CardReadCap> cardReadCapabilities) {
+        this.cardReadCapabilities = cardReadCapabilities;
+    }
 }

@@ -3,6 +3,7 @@ import com.juan.devicemanage.domain.model.enums.DeviceStatus;
 import com.juan.devicemanage.domain.model.enums.DeviceType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import java.time.Instant;
@@ -33,22 +34,22 @@ public class Device {
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column (name = "device_type", nullable = false)
     private DeviceType deviceType;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column (name = "device_status", nullable = false)
     private DeviceStatus deviceStatus;
 
     @NotBlank
-    @Column (name = "vendor")
+    @Column (name = "vendor", length = 32)
     private String vendor;
 
     @NotBlank
-    @Column(name = "model")
+    @Column(name = "model", length = 64)
     private String model;
 
     @NotBlank
@@ -56,11 +57,27 @@ public class Device {
     @Column(name = "sw_version", nullable = false)
     private String softwareVersion;
 
+
     @NotBlank
     @Column(name = "address", nullable = false)
     private String address;
 
     //aca vendria el un atributo owner para cuando implementemos billing
+
+    public Device(String deviceId, DeviceType deviceType,
+                  DeviceStatus deviceStatus,
+                  String vendor, String model,
+                  String softwareVersion, String address) {
+        this.deviceId = deviceId;
+        this.deviceType = deviceType;
+        this.deviceStatus = deviceStatus;
+        this.vendor = vendor;
+        this.model = model;
+        this.softwareVersion = softwareVersion;
+        this.address = address;
+    }
+
+    protected Device () {}
 
     @PrePersist
     void onCreate() {

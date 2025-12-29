@@ -5,10 +5,12 @@ import com.juan.devicemanage.domain.model.enums.DispenserType;
 import com.juan.devicemanage.domain.model.enums.EppType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import java.util.UUID;
-
+@Entity
+@Table (name = "atm_detail")
 public class AtmDetail {
 
     @Id
@@ -31,12 +33,12 @@ public class AtmDetail {
     @Column(name = "fiid", nullable = false)
     private String fiid;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "deposit_type", nullable = false)
     private DepositModuleType depositType;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "dispenser_type", nullable = false)
     private DispenserType dispenserType;
@@ -45,15 +47,80 @@ public class AtmDetail {
     @Column(name = "win_version")
     private String winVersion;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "EPP" , nullable = false)
+    @Column(name = "epp_typ" , nullable = false)
     private EppType eppType;
 
-    void setDevice(Device device) {
-        this.device = device;
-        this.id = (device != null) ? device.getId() : null;
+    protected AtmDetail() {}
+    public AtmDetail(Device device, String fiid,
+                     DepositModuleType depositType,
+                     DispenserType dispenserType,
+                     String winVersion, EppType eppType) {
+        this.setDevice(device);
+        this.fiid = fiid;
+        this.depositType = depositType;
+        this.dispenserType = dispenserType;
+        this.winVersion = winVersion;
+        this.eppType = eppType;
     }
 
+    void setDevice(Device device) {
 
+        if (device != null && device.getId() != null){
+            this.id = device.getId();
+            this.device = device;
+        }else{
+            throw new RuntimeException("device should be not null");
+        }
+
+    }
+
+    public void setFiid(String fiid) {
+        this.fiid = fiid;
+    }
+
+    public void setDepositType(DepositModuleType depositType) {
+        this.depositType = depositType;
+    }
+
+    public void setDispenserType(DispenserType dispenserType) {
+        this.dispenserType = dispenserType;
+    }
+
+    public void setWinVersion(String winVersion) {
+        this.winVersion = winVersion;
+    }
+
+    public void setEppType(EppType eppType) {
+        this.eppType = eppType;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public String getFiid() {
+        return fiid;
+    }
+
+    public DepositModuleType getDepositType() {
+        return depositType;
+    }
+
+    public DispenserType getDispenserType() {
+        return dispenserType;
+    }
+
+    public String getWinVersion() {
+        return winVersion;
+    }
+
+    public EppType getEppType() {
+        return eppType;
+    }
 }

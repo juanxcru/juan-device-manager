@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.UUID;
 
+@Entity
+@Table(name = "device_event")
 public class DeviceEvent {
 
     @Id
@@ -32,5 +34,56 @@ public class DeviceEvent {
     @Column(name = "payload_json", columnDefinition = "text")
     private String payloadJson;
 
+    protected DeviceEvent(){}
+    public DeviceEvent(Device device, DeviceEventType type, String actor, String payloadJson) {
+        this.device = device;
+        this.type = type;
+        this.actor = (actor != null) ? actor : "sys" ;
+        this.payloadJson = payloadJson;
+    }
 
+    public void setDevice(Device device) {
+        this.device = device;
+    }
+
+    public void setType(DeviceEventType type) {
+        this.type = type;
+    }
+
+    @PrePersist
+    public void onCreate (){
+        this.occurredAt = Instant.now();
+    }
+
+    public void setActor(String actor) {
+        this.actor = actor;
+    }
+
+    public void setPayloadJson(String payloadJson) {
+        this.payloadJson = payloadJson;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Device getDevice() {
+        return device;
+    }
+
+    public DeviceEventType getType() {
+        return type;
+    }
+
+    public Instant getOccurredAt() {
+        return occurredAt;
+    }
+
+    public String getActor() {
+        return actor;
+    }
+
+    public String getPayloadJson() {
+        return payloadJson;
+    }
 }
