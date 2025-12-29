@@ -31,9 +31,10 @@ public class DeviceService {
     public void newAtm(DeviceAtmData newAtmData){
 
         // Verificar si ya existe
-
+        if (deviceRepo.existsByDeviceId(newAtmData.getDeviceCommonData().getDeviceId())){
+            throw new RuntimeException("deviceId already exists");
+        }
         // JPA
-
         Device newAtmDevice = new Device(
                 newAtmData.getDeviceCommonData().getDeviceId(),
                 DeviceType.ATM, DeviceStatus.ACTIVE,
