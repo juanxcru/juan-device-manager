@@ -1,3 +1,11 @@
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/device_manager
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialectspring:
   application:
-    name: devicemanage
+    name: devicemanager

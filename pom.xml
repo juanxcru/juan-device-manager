@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.juan</groupId>
-	<artifactId>devicemanage</artifactId>
+	<artifactId>devicemanager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>devicemanage</name>
-	<description>Device Manage by Juan</description>
+	<name>devicemanager</name>
+	<description>Device Manager by Juan</description>
 	<url/>
 	<licenses>
 		<license/>

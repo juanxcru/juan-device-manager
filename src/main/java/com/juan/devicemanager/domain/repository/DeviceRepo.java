@@ -1,0 +1,12 @@
+package com.juan.devicemanager.domain.repository;
+
+import com.juan.devicemanager.domain.model.Device;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+import java.util.UUID;
+
+public interface DeviceRepo extends JpaRepository<Device, UUID> {
+    Optional<Device> findByDeviceId(String deviceId);
+    boolean existsByDeviceId(String deviceId);
+}
